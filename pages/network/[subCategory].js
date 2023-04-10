@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import ResourceCard from '../../components/ResourceCard';
 import CreativePrompt from '../../components/CreativePrompt';
-import { subCategoryData, resources, creativePrompts } from '../../data/data';
+import { healthSubCategoryData as subCategoryData, healthResources as resources, healthCreativePrompts as creativePrompts } from '../../data/healthData';
 import styles from './Category.module.css';
 
 const SubCategoryPage = () => {
