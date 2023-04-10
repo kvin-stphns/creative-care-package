@@ -1,5 +1,5 @@
 // pages/creativity/index.js
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import CategoryCard from '../../components/CategoryCard';
 import Link from 'next/link';
@@ -7,6 +7,13 @@ import styles from '../health/Category.module.css';
 import { creativitySubcategories, creativityCreativePrompts } from '../../data/creativityData';
 
 const Creativity = () => {
+  const [randomPrompt, setRandomPrompt] = useState('');
+
+  const generateRandomPrompt = () => {
+    const randomIndex = Math.floor(Math.random() * creativityCreativePrompts.length);
+    setRandomPrompt(creativityCreativePrompts[randomIndex].prompt);
+  };
+
   return (
     <>
       <Head>
@@ -33,12 +40,9 @@ const Creativity = () => {
           ))}
         </section>
         <section className={styles.creativePrompts}>
-          <h2>Creative Prompts</h2>
-          <ul>
-            {creativityCreativePrompts.map((prompt) => (
-              <li key={prompt.id}>{prompt.prompt}</li>
-            ))}
-          </ul>
+          <h2>Random Creative Prompt</h2>
+          <p>{randomPrompt}</p>
+          <button onClick={generateRandomPrompt}>Generate Prompt</button>
         </section>
       </main>
     </>
