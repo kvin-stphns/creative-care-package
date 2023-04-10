@@ -1,16 +1,23 @@
 // pages/informative/index.js
 import React from 'react';
-import CategoryCard from '../../components/CategoryCard';
+import Link from 'next/link';
 import styles from './Category.module.css';
-import { informativeCategories } from '../../data/informativeData';
+import { informativeSubcategories } from '../../data/informativeData';
 
 function Informative() {
   return (
     <div className={styles.categoryPage}>
       <h1>Informative</h1>
-      <div className={styles.categoryGrid}>
-        {informativeCategories.map((category) => (
-          <CategoryCard key={category.id} category={category} />
+      <div className={styles.subcategoryGrid}>
+        {informativeSubcategories.map((subcategory) => (
+          <div key={subcategory.id} className={styles.subcategoryCard}>
+            <Link href={`/informative/${subcategory.id}`}>
+              <a>
+                <h3>{subcategory.title}</h3>
+                <p>{subcategory.description}</p>
+              </a>
+            </Link>
+          </div>
         ))}
       </div>
     </div>
