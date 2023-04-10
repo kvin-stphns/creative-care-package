@@ -12,10 +12,10 @@ function Informative() {
         {informativeSubcategories.map((subcategory) => (
           <div key={subcategory.id} className={styles.subcategoryCard}>
             <Link href={`/informative/${subcategory.id}`}>
-              <a>
-                <h3>{subcategory.title}</h3>
-                <p>{subcategory.description}</p>
-              </a>
+
+              <h3>{subcategory.title}</h3>
+              <p>{subcategory.description}</p>
+
             </Link>
           </div>
         ))}
