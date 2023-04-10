@@ -1,19 +1,20 @@
 import React from 'react';
 import Head from 'next/head';
 import CategoryCard from '../../components/CategoryCard';
+import Link from 'next/link';
 import styles from './Category.module.css';
 
 const healthSubcategories = [
     {
+      id: 'mental-health',
       title: 'Mental Health',
       description: 'Resources for mental health and well-being',
       icon: '/images/mental-health-icon.svg',
-      link: '/health/mental-health',
     },
     // Add more subcategories as needed
   ];
   
-
+  
 
 const Health = () => {
     return (
@@ -27,16 +28,18 @@ const Health = () => {
             Resources to support your physical and mental well-being during the pandemic.
           </p>
           <section className={styles.subcategoryGrid}>
-            {healthSubcategories.map((subcategory, index) => (
-              <CategoryCard
-                key={index}
-                title={subcategory.title}
-                description={subcategory.description}
-                icon={subcategory.icon}
-                link={subcategory.link}
-              />
-            ))}
-          </section>
+            {healthSubcategories.map((subcategory) => (
+                <Link key={subcategory.id} href={`/health/${subcategory.id}`} passHref>
+                    <a>
+                        <CategoryCard
+                        title={subcategory.title}
+                        description={subcategory.description}
+                        icon={subcategory.icon}
+                        />
+                    </a>
+                    </Link>
+                ))}
+                </section>
         </main>
       </>
     );
