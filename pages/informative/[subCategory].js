@@ -1,45 +1,86 @@
 // pages/informative/[subCategory].js
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import ResourceCard from '../../components/ResourceCard';
 import { informativeSubcategories, informativeResources } from '../../data/informativeData';
 import styles from './Category.module.css';
 
-function InformativeSubCategoryPage({ resources }) {
-  const router = useRouter();
-  const subcategory = informativeSubcategories.find((sub) => sub.id === router.query.subCategory);
+function InformativeSubCategoryPage({ informativeSubCategory }) {
+  const [subCategoryDetails, setSubCategoryDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  if (!subcategory) {
-    return <p>Subcategory not found</p>;
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = informativeSubcategories.find((sub) => sub.id === informativeSubCategory);
+        setSubCategoryDetails(data);
+        setLoading(false);
+      } catch (err) {
+        setError(true);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [informativeSubCategory]);
 
   return (
     <div className={styles.subCategoryPage}>
-      <h1>{subcategory.title}</h1>
-      <p>{subcategory.description}</p>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>Failed to load data. Please try again.</p>
+      ) : (
+        <>
+          <h1>{subCategoryDetails.title}</h1>
+          <p>{subCategoryDetails.description}</p>
 
-      <div className={styles.resourceGrid}>
-        {resources.map((resource) => (
-          <ResourceCard key={resource.id} resource={resource} />
-        ))}
-      </div>
+          <div className={styles.resourceGrid}>
+            {informativeResources[informativeSubCategory].map((resource) => (
+              <ResourceCard key={resource.id} resource={resource} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
+export default InformativeSubCategoryPage;
+
 export async function getStaticProps({ params }) {
-  const resources = informativeResources[params.subCategory] || [];
+  const informativeSubCategory = params.subCategory;
+  const subCategoryDetails = informativeSubcategories.find((sub) => sub.id === informativeSubCategory);
+  const subCategoryResources = informativeResources[informativeSubCategory] || [];
+
+  if (!subCategoryDetails) {
+    console.error(`No subcategory details found for '${informativeSubCategory}'`);
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
-      resources,
+      informativeSubCategory,
+      subCategoryDetails,
+      subCategoryResources,
     },
   };
 }
 
 export async function getStaticPaths() {
-  const paths = informativeSubcategories.map((subcategory) => ({
-    params: { subCategory: subcategory.id },
+  if (!informativeSubcategories) {
+    console.error('informativeSubcategories is not defined');
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
+
+  const paths = informativeSubcategories.map((subCategory) => ({
+    params: { subCategory: subCategory.id },
   }));
 
   return {
@@ -47,5 +88,3 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
-
-export default InformativeSubCategoryPage;
