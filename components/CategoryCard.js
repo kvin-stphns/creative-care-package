@@ -1,14 +1,14 @@
+// components/CategoryCard.js
 import React from 'react';
 
-const CategoryCard = React.forwardRef(({ title, imageUrl, description }, ref) => {
+const CategoryCard = ({ title, imageUrl, description, onClick }) => {
   return (
-    <div className="category-card">
+    <div className="category-card" onClick={onClick}>
       <img src={imageUrl} alt={title} />
       <h3>{title}</h3>
       <p>{description}</p>
-      <a href="#" ref={ref} style={{ display: 'none' }}></a>
     </div>
   );
-});
+};
 
 export default CategoryCard;

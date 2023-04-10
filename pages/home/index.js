@@ -1,26 +1,36 @@
 import React, { useState, useEffect } from 'react';
+import jsonp from 'jsonp';
 import styles from './Home.module.css';
 
 const Home = () => {
   const [email, setEmail] = useState('');
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
     if (storedEmail) {
       setEmailSubmitted(true);
+    } else {
+      setShowForm(true);
     }
   }, []);
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem('email', email);
-    setEmailSubmitted(true);
+    const url =
+      'https://mapso.us1.list-manage.com/subscribe/post-json?u=a098266c32a75be124a6a996c&id=8e805263a7&c=?';
+    jsonp(`${url}&EMAIL=${email}`, { param: 'c' }, (_, data) => {
+      const { msg, result } = data;
+      if (result === 'success') {
+        localStorage.setItem('email', email);
+        setEmailSubmitted(true);
+        setShowForm(false);
+      } else {
+        alert(msg);
+      }
+    });
   };
-
-  if (emailSubmitted) {
-    return <div>Redirecting...</div>;
-  }
 
   return (
     <div className={styles.container}>
@@ -30,18 +40,21 @@ const Home = () => {
 
       <h1 className={styles.title}>Creative Care Package</h1>
 
-      <form onSubmit={handleSubmit} className={styles.emailSignIn}>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          className={styles.emailInput}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button type="submit" className={styles.signInBtn}>
-          Sign in
-        </button>
-      </form>
+      {showForm && (
+        <form onSubmit={onSubmit} className={styles.emailSignIn}>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className={styles.emailInput}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <button type="submit" className={styles.signInBtn}>
+            Sign in
+          </button>
+        </form>
+      )}
 
       <div className={styles.categories}>
         <a href="/health" className={styles.category}>

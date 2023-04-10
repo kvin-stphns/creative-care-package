@@ -1,9 +1,10 @@
+// pages/health/index.js
 import React from 'react';
 import Head from 'next/head';
 import CategoryCard from '../../components/CategoryCard';
 import Link from 'next/link';
 import styles from './Category.module.css';
-import { healthSubcategories } from '../../data/healthData'; // Import healthSubcategories from healthData.js
+import { healthSubcategories } from '../../data/healthData';
 
 const Health = () => {
   return (
@@ -23,6 +24,10 @@ const Health = () => {
                 title={subcategory.title}
                 description={subcategory.description}
                 icon={subcategory.icon}
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = `/health/${subcategory.id}`;
+                }}
               />
             </Link>
           ))}
