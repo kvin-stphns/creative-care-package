@@ -1,16 +1,18 @@
 // healthData.js
 
 // Health subcategories
-export const healthSubcategories = {
-  'mental-health': {
+export const healthSubcategories = [
+  {
+    id: 'mental-health',
     title: 'Mental Health',
     description: 'Resources for mental health and well-being',
   },
-  'physical-health': {
+  {
+    id: 'physical-health',
     title: 'Physical Health',
     description: 'Resources for physical health and fitness.',
   },
-};
+];
 
 // Health resources
 export const healthResources = {
