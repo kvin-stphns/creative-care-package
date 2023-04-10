@@ -5,7 +5,7 @@ import CreativePrompt from '../../components/CreativePrompt';
 import { healthSubcategories, healthResources, healthCreativePrompts } from '../../data/healthData';
 import styles from './Category.module.css';
 
-function SubCategoryPage({ subCategory }) {
+function HealthSubCategoryPage({ healthSubCategory }) {
   const [subCategoryDetails, setSubCategoryDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -13,7 +13,7 @@ function SubCategoryPage({ subCategory }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = healthSubcategories.find((sub) => sub.id === subCategory);
+        const data = healthSubcategories.find((sub) => sub.id === healthSubCategory);
         setSubCategoryDetails(data);
         setLoading(false);
       } catch (err) {
@@ -23,7 +23,7 @@ function SubCategoryPage({ subCategory }) {
     };
 
     fetchData();
-  }, [subCategory]);
+  }, [healthSubCategory]);
 
   return (
     <div className={styles.subCategoryPage}>
@@ -35,10 +35,10 @@ function SubCategoryPage({ subCategory }) {
         <>
           <h1>{subCategoryDetails.title}</h1>
           <p>{subCategoryDetails.description}</p>
-          {subCategory === 'creativity' && <CreativePrompt prompts={healthCreativePrompts} />}
+          {healthSubCategory === 'creativity' && <CreativePrompt prompts={healthCreativePrompts} />}
 
           <div className={styles.resourceGrid}>
-            {healthResources[subCategory].map((resource) => (
+            {healthResources[healthSubCategory].map((resource) => (
               <ResourceCard key={resource.id} resource={resource} />
             ))}
           </div>
@@ -48,15 +48,15 @@ function SubCategoryPage({ subCategory }) {
   );
 }
 
-export default SubCategoryPage;
+export default HealthSubCategoryPage;
 
 export async function getStaticProps({ params }) {
-  const subCategory = params.subCategory;
-  const subCategoryDetails = healthSubcategories.find((sub) => sub.id === subCategory);
-  const subCategoryResources = healthResources[subCategory] || [];
+  const healthSubCategory = params.subCategory;
+  const subCategoryDetails = healthSubcategories.find((sub) => sub.id === healthSubCategory);
+  const subCategoryResources = healthResources[healthSubCategory] || [];
 
   if (!subCategoryDetails) {
-    console.error(`No subcategory details found for '${subCategory}'`);
+    console.error(`No subcategory details found for '${healthSubCategory}'`);
     return {
       notFound: true,
     };
@@ -64,7 +64,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      subCategory,
+      healthSubCategory,
       subCategoryDetails,
       subCategoryResources,
     },

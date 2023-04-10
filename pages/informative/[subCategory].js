@@ -1,37 +1,90 @@
+// pages/informative/[subCategory].js
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import ResourceCard from '../../components/ResourceCard';
-import CreativePrompt from '../../components/CreativePrompt';
-import { healthSubCategoryData as subCategoryData, healthResources as resources, healthCreativePrompts as creativePrompts } from '../../data/healthData';
+import { informativeSubcategories, informativeResources } from '../../data/informativeData';
 import styles from './Category.module.css';
 
-const SubCategoryPage = () => {
-  const router = useRouter();
-  const { subCategory } = router.query;
+function InformativeSubCategoryPage({ informativeSubCategory }) {
+  const [subCategoryDetails, setSubCategoryDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  // Fetch subcategory data, resources, and creative prompts (if needed) here
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = informativeSubcategories.find((sub) => sub.id === informativeSubCategory);
+        setSubCategoryDetails(data);
+        setLoading(false);
+      } catch (err) {
+        setError(true);
+        setLoading(false);
+      }
+    };
 
-  // Import your data or use an API call to fetch the data
-
-  // Inside the SubCategoryPage component:
-  const subCategoryDetails = subCategoryData[subCategory];
-  const subCategoryResources = resources[subCategory];
-  const subCategoryCreativePrompts = creativePrompts[subCategory];
+    fetchData();
+  }, [informativeSubCategory]);
 
   return (
     <div className={styles.subCategoryPage}>
-      <h1>{subCategoryDetails.title}</h1>
-      <p>{subCategoryDetails.description}</p>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>Failed to load data. Please try again.</p>
+      ) : (
+        <>
+          <h1>{subCategoryDetails.title}</h1>
+          <p>{subCategoryDetails.description}</p>
 
-      {subCategory === 'creativity' && <CreativePrompt prompts={subCategoryCreativePrompts} />}
-
-      <div className={styles.resourceGrid}>
-        {subCategoryResources.map((resource) => (
-          <ResourceCard key={resource.id} resource={resource} />
-        ))}
-      </div>
+          <div className={styles.resourceGrid}>
+            {informativeResources[informativeSubCategory].map((resource) => (
+              <ResourceCard key={resource.id} resource={resource} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
-};
+}
 
-export default SubCategoryPage;
+export default InformativeSubCategoryPage;
+
+export async function getStaticProps({ params }) {
+  const informativeSubCategory = params.subCategory;
+  const subCategoryDetails = informativeSubcategories.find((sub) => sub.id === informativeSubCategory);
+  const subCategoryResources = informativeResources[informativeSubCategory] || [];
+
+  if (!subCategoryDetails) {
+    console.error(`No subcategory details found for '${informativeSubCategory}'`);
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      informativeSubCategory,
+      subCategoryDetails,
+      subCategoryResources,
+    },
+  };
+}
+
+export async function getStaticPaths() {
+  if (!informativeSubcategories) {
+    console.error('informativeSubcategories is not defined');
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
+
+  const paths = informativeSubcategories.map((subCategory) => ({
+    params: { subCategory: subCategory.id },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
