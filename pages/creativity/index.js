@@ -14,39 +14,41 @@ const Creativity = () => {
     setRandomPrompt(creativityCreativePrompts[randomIndex].prompt);
   };
 
-  return (
-    <>
-      <Head>
-        <title>Creativity - Creative Care Package</title>
-      </Head>
-      <main className={styles.container}>
-        <h1 className={styles.title}>Creativity</h1>
-        <p className={styles.description}>
-          Resources and prompts to inspire creativity during the pandemic.
-        </p>
-        <section className={styles.subcategoryGrid}>
-          {creativitySubcategories.map((subcategory) => (
-            <Link key={subcategory.id} href={`/creativity/${subcategory.id}`} passHref>
-              <CategoryCard
-                title={subcategory.title}
-                description={subcategory.description}
-                icon={subcategory.icon}
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.location.href = `/creativity/${subcategory.id}`;
-                }}
-              />
-            </Link>
-          ))}
-        </section>
-        <section className={styles.creativePrompts}>
-          <h2>Random Creative Prompt</h2>
-          <p>{randomPrompt}</p>
-          <button onClick={generateRandomPrompt}>Generate Prompt</button>
-        </section>
-      </main>
-    </>
-  );
+  return <>
+    <Head>
+      <title>Creativity - Creative Care Package</title>
+    </Head>
+    <main className={styles.container}>
+      <h1 className={styles.title}>Creativity</h1>
+      <p className={styles.description}>
+        Resources and prompts to inspire creativity during the pandemic.
+      </p>
+      <section className={styles.subcategoryGrid}>
+        {creativitySubcategories.map((subcategory) => (
+          <Link
+            key={subcategory.id}
+            href={`/creativity/${subcategory.id}`}
+            passHref
+            legacyBehavior>
+            <CategoryCard
+              title={subcategory.title}
+              description={subcategory.description}
+              icon={subcategory.icon}
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = `/creativity/${subcategory.id}`;
+              }}
+            />
+          </Link>
+        ))}
+      </section>
+      <section className={styles.creativePrompts}>
+        <h2>Random Creative Prompt</h2>
+        <p>{randomPrompt}</p>
+        <button onClick={generateRandomPrompt}>Generate Prompt</button>
+      </section>
+    </main>
+  </>;
 };
 
 export default Creativity;
