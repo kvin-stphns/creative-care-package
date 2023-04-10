@@ -1,37 +1,81 @@
+// pages/creativity/subCategory.js
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import ResourceCard from '../../components/ResourceCard';
 import CreativePrompt from '../../components/CreativePrompt';
-import { healthSubCategoryData as subCategoryData, healthResources as resources, healthCreativePrompts as creativePrompts } from '../../data/healthData';
-import styles from './Category.module.css';
+import { creativitySubcategories, creativityResources, creativityCreativePrompts } from '../../data/creativityData';
+import styles from '../health/Category.module.css';
 
-const SubCategoryPage = () => {
-  const router = useRouter();
-  const { subCategory } = router.query;
+function CreativitySubCategoryPage({ creativitySubCategory }) {
+  const [subCategoryDetails, setSubCategoryDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  // Fetch subcategory data, resources, and creative prompts (if needed) here
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = creativitySubcategories.find((sub) => sub.id === creativitySubCategory);
+        setSubCategoryDetails(data);
+        setLoading(false);
+      } catch (err) {
+        setError(true);
+        setLoading(false);
+      }
+    };
 
-  // Import your data or use an API call to fetch the data
-
-  // Inside the SubCategoryPage component:
-  const subCategoryDetails = subCategoryData[subCategory];
-  const subCategoryResources = resources[subCategory];
-  const subCategoryCreativePrompts = creativePrompts[subCategory];
+    fetchData();
+  }, [creativitySubCategory]);
 
   return (
     <div className={styles.subCategoryPage}>
-      <h1>{subCategoryDetails.title}</h1>
-      <p>{subCategoryDetails.description}</p>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>Failed to load data. Please try again.</p>
+      ) : (
+        <>
+          <h1>{subCategoryDetails.title}</h1>
+          <p>{subCategoryDetails.description}</p>
+          {creativitySubCategory === 'creativity' && <CreativePrompt prompts={creativityCreativePrompts} />}
 
-      {subCategory === 'creativity' && <CreativePrompt prompts={subCategoryCreativePrompts} />}
-
-      <div className={styles.resourceGrid}>
-        {subCategoryResources.map((resource) => (
-          <ResourceCard key={resource.id} resource={resource} />
-        ))}
-      </div>
+          <div className={styles.resourceGrid}>
+            {creativityResources[creativitySubCategory].map((resource) => (
+              <ResourceCard key={resource.id} resource={resource} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
-};
+}
 
-export default SubCategoryPage;
+export default CreativitySubCategoryPage;
+
+export async function getStaticProps({ params }) {
+  const creativitySubCategory = params.subCategory;
+  const subCategoryDetails =
+  creativitySubcategories.find((sub) => sub.id === creativitySubCategory);
+
+  if (!subCategoryDetails) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      creativitySubCategory,
+    },
+  };
+}
+
+export async function getStaticPaths() {
+  const paths = creativitySubcategories.map((subcategory) => ({
+    params: { subCategory: subcategory.id },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}

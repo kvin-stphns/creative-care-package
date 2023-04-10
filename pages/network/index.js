@@ -1,38 +1,35 @@
+// pages/network/index.js
 import React from 'react';
 import Head from 'next/head';
 import CategoryCard from '../../components/CategoryCard';
+import Link from 'next/link';
 import styles from './Category.module.css';
+import { networkSubcategories } from '../../data/networkData';
 
-const healthSubcategories = [
-  {
-    title: 'Mental Health',
-    description: 'Resources for mental health and well-being',
-    icon: '/images/mental-health-icon.svg',
-    link: '/health/mental-health',
-  },
-  // Add more subcategories as needed
-];
-
-const Health = () => {
+const Network = () => {
   return (
     <>
       <Head>
-        <title>Health - Creative Care Package</title>
+        <title>Network - Creative Care Package</title>
       </Head>
       <main className={styles.container}>
-        <h1 className={styles.title}>Health</h1>
+        <h1 className={styles.title}>Network</h1>
         <p className={styles.description}>
-          Resources to support your physical and mental well-being during the pandemic.
+          Connect with others, share experiences, and find support during the pandemic.
         </p>
         <section className={styles.subcategoryGrid}>
-          {healthSubcategories.map((subcategory, index) => (
-            <CategoryCard
-              key={index}
-              title={subcategory.title}
-              description={subcategory.description}
-              icon={subcategory.icon}
-              link={subcategory.link}
-            />
+          {networkSubcategories.map((subcategory) => (
+            <Link key={subcategory.id} href={`/network/${subcategory.id}`} passHref>
+              <CategoryCard
+                title={subcategory.title}
+                description={subcategory.description}
+                icon={subcategory.icon}
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = `/network/${subcategory.id}`;
+                }}
+              />
+            </Link>
           ))}
         </section>
       </main>
@@ -40,4 +37,4 @@ const Health = () => {
   );
 };
 
-export default Health;
+export default Network;
