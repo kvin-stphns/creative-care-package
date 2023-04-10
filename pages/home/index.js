@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import jsonp from 'jsonp';
+import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Home.module.css';
 
 const Home = () => {
@@ -35,7 +37,12 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <div className={styles.gif}>
-        <img src="/images/covid-theme.gif" alt="COVID-themed GIF" />
+        <Image
+          src="/images/covid-theme.gif"
+          alt="COVID-themed GIF"
+          width={500}
+          height={300}
+        />
       </div>
 
       <h1 className={styles.title}>Creative Care Package</h1>
@@ -57,25 +64,53 @@ const Home = () => {
       )}
 
       <div className={styles.categories}>
-        <a href="/health" className={styles.category}>
-          <img src="/images/health-icon.png" alt="Health" />
-          <h3>Health</h3>
-        </a>
+        <Link href="/health" passHref legacyBehavior>
+          <a className={styles.category}>
+            <Image
+              src="/images/health-icon.png"
+              alt="Health"
+              width={100}
+              height={100}
+            />
+            <h3>Health</h3>
+          </a>
+        </Link>
 
-        <a href="/informative" className={styles.category}>
-          <img src="/images/informative-icon.png" alt="Informative" />
-          <h3>Informative</h3>
-        </a>
+        <Link href="/informative" passHref legacyBehavior>
+          <a className={styles.category}>
+            <Image
+              src="/images/informative-icon.png"
+              alt="Informative"
+              width={100}
+              height={100}
+            />
+            <h3>Informative</h3>
+          </a>
+        </Link>
 
-        <a href="/creativity" className={styles.category}>
-          <img src="/images/creativity-icon.png" alt="Creativity" />
-          <h3>Creativity</h3>
-        </a>
+        <Link href="/creativity" passHref legacyBehavior>
+          <a className={styles.category}>
+            <Image
+              src="/images/creativity-icon.png"
+              alt="Creativity"
+              width={100}
+              height={100}
+            />
+            <h3>Creativity</h3>
+          </a>
+        </Link>
 
-        <a href="/network" className={styles.category}>
-          <img src="/images/network-icon.png" alt="Network" />
-          <h3>Network</h3>
-        </a>
+        <Link href="/network" passHref legacyBehavior>
+          <a className={styles.category}>
+            <Image
+              src="/images/network-icon.png"
+              alt="Network"
+              width={100}
+              height={100}
+            />
+            <h3>Network</h3>
+          </a>
+        </Link>
       </div>
 
       <div className={styles.popOut}>
@@ -88,3 +123,4 @@ const Home = () => {
 };
 
 export default Home;
+
