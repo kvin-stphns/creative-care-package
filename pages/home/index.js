@@ -38,14 +38,6 @@ const Home = () => {
   return (
     <div className={styles.container}>
       {/* (keep the existing code for the gif, title, and form) */}
-      <div className={styles.gif}>
-        <Image
-          src="/images/covid-theme.gif"
-          alt="COVID-themed GIF"
-          width={500}
-          height={300}
-        />
-      </div>
 
       <h1 className={styles.title}>Creative Care Package</h1>
 
