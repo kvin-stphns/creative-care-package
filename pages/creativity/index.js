@@ -5,6 +5,7 @@ import CategoryCard from '../../components/CategoryCard';
 import Link from 'next/link';
 import styles from '../health/Category.module.css';
 import { creativitySubcategories, creativityCreativePrompts } from '../../data/creativityData';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 const Creativity = () => {
   const [randomPrompt, setRandomPrompt] = useState('');
@@ -15,6 +16,7 @@ const Creativity = () => {
   };
 
   return <>
+  <ProtectedRoute>
     <Head>
       <title>Creativity - Creative Care Package</title>
     </Head>
@@ -48,6 +50,7 @@ const Creativity = () => {
         <button onClick={generateRandomPrompt}>Generate Prompt</button>
       </section>
     </main>
+    </ProtectedRoute>
   </>;
 };
 

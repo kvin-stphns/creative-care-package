@@ -4,6 +4,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import CategoryCard from '../../components/CategoryCard'; // Import CategoryCard component
 import styles from './Home.module.css';
+import dynamic from 'next/dynamic';
+import ProtectedRoute from '@/components/ProtectedRoute';
+//const DynamicProtectedRoute = dynamic(() => import('../../components/ProtectedRoute'), { ssr: false });
+
+
 
 const Home = () => {
   const [email, setEmail] = useState('');
@@ -36,12 +41,14 @@ const Home = () => {
   };
 
   return (
+    // <DynamicProtectedRoute>
+    <ProtectedRoute>
     <div className={styles.container}>
       {/* (keep the existing code for the gif, title, and form) */}
 
       <h1 className={styles.title}>Creative Care Package</h1>
 
-      {showForm && (
+      {/* {showForm && (
         <form onSubmit={onSubmit} className={styles.emailSignIn}>
           <input
             type="email"
@@ -55,7 +62,7 @@ const Home = () => {
             Sign in
           </button>
         </form>
-      )}
+      )} */}
 
 <section className={styles.homeSubcategoryGrid}>
       <div className={styles.categories}>
@@ -115,6 +122,8 @@ const Home = () => {
         </p>
       </div>
     </div>
+    </ProtectedRoute>
+    // </DynamicProtectedRoute>
   );
 };
 

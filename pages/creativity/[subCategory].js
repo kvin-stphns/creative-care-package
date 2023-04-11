@@ -5,6 +5,7 @@ import ResourceCard from '../../components/ResourceCard';
 import CreativePrompt from '../../components/CreativePrompt';
 import { creativitySubcategories, creativityResources, creativityCreativePrompts } from '../../data/creativityData';
 import styles from '../health/Category.module.css';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 function CreativitySubCategoryPage({ creativitySubCategory }) {
   const [subCategoryDetails, setSubCategoryDetails] = useState(null);
@@ -27,6 +28,7 @@ function CreativitySubCategoryPage({ creativitySubCategory }) {
   }, [creativitySubCategory]);
 
   return (
+    <ProtectedRoute>
     <div className={styles.subCategoryPage}>
       {loading ? (
         <p>Loading...</p>
@@ -46,6 +48,7 @@ function CreativitySubCategoryPage({ creativitySubCategory }) {
         </>
       )}
     </div>
+    </ProtectedRoute>
   );
 }
 
