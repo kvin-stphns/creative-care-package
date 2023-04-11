@@ -10,7 +10,7 @@ const Index = () => {
     if (email) {
       router.replace('/home');
     }
-  }, []);
+  }, [router]);
 
   return <Home />;
 };
