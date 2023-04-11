@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import jsonp from 'jsonp';
 import Link from 'next/link';
 import Image from 'next/image';
+import CategoryCard from '../../components/CategoryCard'; // Import CategoryCard component
 import styles from './Home.module.css';
 
 const Home = () => {
@@ -36,6 +37,7 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
+      {/* (keep the existing code for the gif, title, and form) */}
       <div className={styles.gif}>
         <Image
           src="/images/covid-theme.gif"
@@ -63,55 +65,57 @@ const Home = () => {
         </form>
       )}
 
+<section className={styles.homeSubcategoryGrid}>
       <div className={styles.categories}>
         <Link href="/health" passHref legacyBehavior>
-          <a className={styles.category}>
-            <Image
-              src="/images/health-icon.png"
-              alt="Health"
-              width={100}
-              height={100}
-            />
-            <h3>Health</h3>
-          </a>
+          <CategoryCard
+            title="Health"
+            imageUrl="/images/health-icon.png"
+            description=""
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = '/health';
+            }}
+          />
         </Link>
 
         <Link href="/informative" passHref legacyBehavior>
-          <a className={styles.category}>
-            <Image
-              src="/images/informative-icon.png"
-              alt="Informative"
-              width={100}
-              height={100}
-            />
-            <h3>Informative</h3>
-          </a>
+          <CategoryCard
+            title="Informative"
+            imageUrl="/images/informative-icon.png"
+            description=""
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = '/informative';
+            }}
+          />
         </Link>
 
         <Link href="/creativity" passHref legacyBehavior>
-          <a className={styles.category}>
-            <Image
-              src="/images/creativity-icon.png"
-              alt="Creativity"
-              width={100}
-              height={100}
-            />
-            <h3>Creativity</h3>
-          </a>
+          <CategoryCard
+            title="Creativity"
+            imageUrl="/images/creativity-icon.png"
+            description=""
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = '/creativity';
+            }} 
+          />
         </Link>
 
         <Link href="/network" passHref legacyBehavior>
-          <a className={styles.category}>
-            <Image
-              src="/images/network-icon.png"
-              alt="Network"
-              width={100}
-              height={100}
-            />
-            <h3>Network</h3>
-          </a>
+          <CategoryCard
+            title="Network"
+            imageUrl="/images/network-icon.png"
+            description=""
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = '/network';
+            }}
+          />
         </Link>
       </div>
+      </section>
 
       <div className={styles.popOut}>
         <p>
