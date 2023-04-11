@@ -4,6 +4,7 @@ import ResourceCard from '../../components/ResourceCard';
 import CreativePrompt from '../../components/CreativePrompt';
 import { healthSubcategories, healthResources, healthCreativePrompts } from '../../data/healthData';
 import styles from './Category.module.css';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 function HealthSubCategoryPage({ healthSubCategory }) {
   const [subCategoryDetails, setSubCategoryDetails] = useState(null);
@@ -26,6 +27,7 @@ function HealthSubCategoryPage({ healthSubCategory }) {
   }, [healthSubCategory]);
 
   return (
+    <ProtectedRoute>
     <div className={styles.subCategoryPage}>
       {loading ? (
         <p>Loading...</p>
@@ -45,6 +47,7 @@ function HealthSubCategoryPage({ healthSubCategory }) {
         </>
       )}
     </div>
+    </ProtectedRoute>
   );
 }
 

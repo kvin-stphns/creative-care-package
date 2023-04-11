@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import ResourceCard from '../../components/ResourceCard';
 import { informativeSubcategories, informativeResources } from '../../data/informativeData';
 import styles from './Category.module.css';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 function InformativeSubCategoryPage({ informativeSubCategory }) {
   const [subCategoryDetails, setSubCategoryDetails] = useState(null);
@@ -26,6 +27,7 @@ function InformativeSubCategoryPage({ informativeSubCategory }) {
   }, [informativeSubCategory]);
 
   return (
+    <ProtectedRoute>
     <div className={styles.subCategoryPage}>
       {loading ? (
         <p>Loading...</p>
@@ -44,6 +46,7 @@ function InformativeSubCategoryPage({ informativeSubCategory }) {
         </>
       )}
     </div>
+    </ProtectedRoute>
   );
 }
 

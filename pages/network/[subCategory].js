@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import ResourceCard from '../../components/ResourceCard';
 import { networkSubcategories, networkResources } from '../../data/networkData';
 import styles from './Category.module.css';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 function NetworkSubCategoryPage({ networkSubCategory }) {
   const [subCategoryDetails, setSubCategoryDetails] = useState(null);
@@ -26,6 +27,7 @@ function NetworkSubCategoryPage({ networkSubCategory }) {
   }, [networkSubCategory]);
 
   return (
+    <ProtectedRoute>
     <div className={styles.subCategoryPage}>
       {loading ? (
         <p>Loading...</p>
@@ -44,6 +46,7 @@ function NetworkSubCategoryPage({ networkSubCategory }) {
         </>
       )}
     </div>
+    </ProtectedRoute>
   );
 }
 
