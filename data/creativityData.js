@@ -45,6 +45,14 @@ export const creativitySubcategories = [
       id: 2,
       prompt: 'Create an illustration of a mythical creature in a modern city.',
     },
+    {
+        id: 3,
+        prompt: 'Write a poem about your feelings.',
+      },
+      {
+        id: 4,
+        prompt: 'Draw a picture that represents your emotions.',
+      },
     // Add more creative prompts here
   ];
   
