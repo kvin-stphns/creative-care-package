@@ -14,11 +14,6 @@
     margin-bottom: 2rem;
   }
   
-  .subcategoryGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
-  }
   
   .subCategoryPage {
     /* Your styles for the subCategoryPage */
@@ -29,5 +24,23 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 20px;
     padding: 20px;
+  }
+  
+  .subcategoryGrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+  
+  @media screen and (min-width: 480px) {
+    .subcategoryGrid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .subcategoryGrid {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
   

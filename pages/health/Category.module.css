@@ -16,7 +16,20 @@
   
   .subcategoryGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(1, 1fr);
     gap: 1rem;
   }
+  
+  @media screen and (min-width: 480px) {
+    .subcategoryGrid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .subcategoryGrid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
   
