@@ -59,7 +59,7 @@
 
 // export default LoginPage;
 import React from 'react';
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client';
 
 const LoginPage = () => {
   const { user, error, isLoading } = useUser();
