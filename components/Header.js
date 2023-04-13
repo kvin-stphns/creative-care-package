@@ -3,6 +3,8 @@ import Image from 'next/image';
 import styles from './Header.module.css';
 
 const Header = () => {
+  const { user, isLoading } = useUser();
+
   return (
     <header className={styles.header}>
       {/* App logo */}
@@ -40,6 +42,15 @@ const Header = () => {
       <div className={styles.search}>
         <input type="text" placeholder="Search..." />
       </div>
+      {/* Add Login/Logout */}
+    <div className={styles.login}>
+      {!isLoading &&
+        (user ? (
+          <Link href="/api/auth/logout">Logout</Link>
+        ) : (
+          <Link href="/login">Login</Link>
+        ))}
+    </div>
     </header>
   );
 }
