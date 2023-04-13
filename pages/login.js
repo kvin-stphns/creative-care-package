@@ -59,15 +59,10 @@
 
 // export default LoginPage;
 import React from 'react';
-import { useUser, getLoginUrl } from '@auth0/nextjs-auth0/client';
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 const LoginPage = () => {
   const { user, error, isLoading } = useUser();
-
-  const handleLogin = async () => {
-    const loginUrl = await getLoginUrl();
-    window.location.href = loginUrl;
-  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -79,10 +74,12 @@ const LoginPage = () => {
   return (
     <div>
       <h1>Login / Signup</h1>
-      {!user && <button onClick={handleLogin}>Login / Signup</button>}
       {user && <div>Welcome, {user.name}!</div>}
     </div>
   );
 };
 
-export default LoginPage;
+export default withPageAuthRequired(LoginPage, {
+  onRedirecting: () => <div>Loading...</div>,
+});
+
