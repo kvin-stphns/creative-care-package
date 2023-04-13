@@ -59,10 +59,11 @@
 
 // export default LoginPage;
 import React from 'react';
-import { useUser, loginWithRedirect } from '@auth0/nextjs-auth0/client';
+import { useUser, useAuth0 } from '@auth0/nextjs-auth0/client';
 
 const LoginPage = () => {
   const { user, error, isLoading } = useUser();
+  const { loginWithRedirect } = useAuth0();
 
   const handleLogin = () => {
     loginWithRedirect({
