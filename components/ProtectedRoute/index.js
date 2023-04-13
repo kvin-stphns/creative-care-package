@@ -22,11 +22,11 @@
 
 // export default ProtectedRoute;
 
+// components/ProtectedRoute/index.js
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import styles from './ProtectedRoute.module.css';
 import { useUser } from '@auth0/nextjs-auth0/client';
-
 
 const ProtectedRoute = ({ children }) => {
   const { user, error, isLoading } = useUser();
@@ -34,7 +34,7 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     if (!isLoading && !user) {
-      router.push('/api/auth/login');
+      router.push('/login'); // Change this line to redirect users to the custom login page
     } else if (user) {
       // Subscribe the user to Mailchimp using the API route
       fetch('/api/subscribe', {
@@ -55,4 +55,3 @@ const ProtectedRoute = ({ children }) => {
 };
 
 export default ProtectedRoute;
-
