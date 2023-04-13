@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Header.module.css';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 const Header = () => {
   const { user, isLoading } = useUser();
