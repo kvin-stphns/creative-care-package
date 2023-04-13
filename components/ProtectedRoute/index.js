@@ -27,7 +27,7 @@ import { useEffect } from 'react';
 import styles from './ProtectedRoute.module.css';
 import { useUser } from '@auth0/nextjs-auth0/client';
 
-
+ 
 const ProtectedRoute = ({ children }) => {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
