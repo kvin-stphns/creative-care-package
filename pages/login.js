@@ -59,13 +59,13 @@
 
 // export default LoginPage;
 import React from 'react';
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client';
+import { useUser, loginWithRedirect } from '@auth0/nextjs-auth0/client';
 
 const LoginPage = () => {
   const { user, error, isLoading } = useUser();
 
   const handleLogin = () => {
-    withPageAuthRequired({
+    loginWithRedirect({
       returnTo: '/home',
     });
   };
