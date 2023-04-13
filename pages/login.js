@@ -59,16 +59,14 @@
 
 // export default LoginPage;
 import React from 'react';
-import { useUser, useAuth0 } from '@auth0/nextjs-auth0/client';
+import { useUser, getLoginUrl } from '@auth0/nextjs-auth0/client';
 
 const LoginPage = () => {
   const { user, error, isLoading } = useUser();
-  const { loginWithRedirect } = useAuth0();
 
-  const handleLogin = () => {
-    loginWithRedirect({
-      returnTo: '/home',
-    });
+  const handleLogin = async () => {
+    const loginUrl = await getLoginUrl();
+    window.location.href = loginUrl;
   };
 
   if (isLoading) {
