@@ -106,7 +106,7 @@ const LoginPage = () => {
     healthy, and connected during the COVID-19 pandemic. Explore the categories
     to discover valuable information, creative prompts, and support networks.
   </p>
-  <button onClick={() => setModalVisible(false)}>unpack</button>
+  <button onClick={handleLogin}>unpack</button>
 </div>
             <div className="bottom">
               <ol>
