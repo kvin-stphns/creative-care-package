@@ -89,7 +89,7 @@ const LoginPage = () => {
       {user ? (
         <div>Welcome, {user.name}!</div>
       ) : (
-        <button onClick={handleLogin}>Unpack</button>
+        <button onClick={handleLogin}>Login / Signup</button>
       )}
 
       {showModal && (
