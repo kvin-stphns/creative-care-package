@@ -105,14 +105,13 @@ const LoginPage = () => {
     Package is an app that provides resources to help you stay informed,
     healthy, and connected during the COVID-19 pandemic. Explore the categories
     to discover valuable information, creative prompts, and support networks.
-    &quot;unpack&quot; (middle right: long and narrow)
   </p>
   <button onClick={() => setModalVisible(false)}>unpack</button>
 </div>
             <div className="bottom">
               <ol>
                 <li>
-                  Click "unpack"
+                  Click &quot;unpack&quot;
                   <br />
                   launch our web-app to explore the care package interface
                 </li>
