@@ -100,15 +100,15 @@ const LoginPage = () => {
               <h1>Free resources for creative students</h1>
             </div>
             <div className="right-side">
-              <p>
-                We gathered the best resources across the web just for you!
-                Creative Care Package is an app that provides resources to help
-                you stay informed, healthy, and connected during the COVID-19
-                pandemic. Explore the categories to discover valuable
-                information, creative prompts, and support networks.
-              </p>
-              <button onClick={closeModal}>Unpack</button>
-            </div>
+  <p>
+    We gathered the best resources across the web just for you! Creative Care
+    Package is an app that provides resources to help you stay informed,
+    healthy, and connected during the COVID-19 pandemic. Explore the categories
+    to discover valuable information, creative prompts, and support networks.
+    &quot;unpack&quot; (middle right: long and narrow)
+  </p>
+  <button onClick={() => setModalVisible(false)}>unpack</button>
+</div>
             <div className="bottom">
               <ol>
                 <li>
