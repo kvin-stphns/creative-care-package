@@ -58,11 +58,24 @@
 // };
 
 // export default LoginPage;
-import React from 'react';
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client';
+import React, { useState } from 'react';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { useRouter } from 'next/router';
 
 const LoginPage = () => {
   const { user, error, isLoading } = useUser();
+  const router = useRouter();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [showSignup, setShowSignup] = useState(false);
+
+  const handleLogin = () => {
+    if (showSignup) {
+      router.push(`/api/auth/login?firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}`);
+    } else {
+      router.push('/api/auth/login');
+    }
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -73,13 +86,33 @@ const LoginPage = () => {
 
   return (
     <div>
-      <h1>Login / Signup</h1>
-      {user && <div>Welcome, {user.name}!</div>}
+      <h1>{showSignup ? 'Signup' : 'Login'}</h1>
+      {user ? (
+        <div>Welcome, {user.name}!</div>
+      ) : (
+        <>
+          {showSignup && (
+            <>
+              <input
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </>
+          )}
+          <button onClick={handleLogin}>{showSignup ? 'Signup' : 'Login'}</button>
+          <button onClick={() => setShowSignup(!showSignup)}>{showSignup ? 'Switch to Login' : 'Switch to Signup'}</button>
+        </>
+      )}
     </div>
   );
 };
 
-export default withPageAuthRequired(LoginPage, {
-  onRedirecting: () => <div>Loading...</div>,
-});
-
+export default LoginPage;
