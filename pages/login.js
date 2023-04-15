@@ -209,7 +209,7 @@ const LoginPage = () => {
     padding: 8px 24px;
   }
   h1 {
-    font-size: 24px;
+    font-size: 40px;
   }
   p {
     font-size: 12px;
