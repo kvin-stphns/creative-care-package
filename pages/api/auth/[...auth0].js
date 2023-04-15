@@ -56,7 +56,7 @@ const options = {
     try {
       await handleLogin(req, res, {
         authorizationParams: {
-          response_type: 'code id_token',
+          response_type: 'code',
           scope: 'openid email profile',
         },
         afterCallback: saveUserMetadata,
@@ -85,3 +85,4 @@ const options = {
 };
 
 export default handleAuth(options);
+
