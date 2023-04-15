@@ -241,6 +241,9 @@ const LoginPage = () => {
 
   @media only screen and (max-width: 768px) {
     /* For mobile phones: */
+    .left-side {
+      margin-top: -35px;
+    }
     h1 {
       font-size: 40px;
       line-height: 100%;
@@ -248,7 +251,7 @@ const LoginPage = () => {
     .modal-content {
       background-color: #fefefe;
       margin: auto;
-      padding: 40px;
+      padding: 35px;
       border: 1px solid #888;
       width: 80%;
       display: flex;
@@ -268,6 +271,7 @@ const LoginPage = () => {
     flex-direction: column;
     align-items: center;
     margin-top: -30px;
+    margin-bottom: -10px;
 }
 ol {
   flex-direction: column;
