@@ -106,7 +106,7 @@ const LoginPage = () => {
     healthy, and connected during the COVID-19 pandemic. Explore the categories
     to discover valuable information, creative prompts, and support networks.
   </p>
-  <button onClick={handleLogin}>unpack</button>
+  <button onClick={handleLogin} className='button'>unpack</button>
 </div>
             <div className="bottom">
               <ol>
@@ -134,6 +134,7 @@ const LoginPage = () => {
                   of them are free!
                 </li>
               </ol>
+              <button onClick={handleLogin} className='button-mobile'>unpack</button>
             </div>
           </div>
         </div>
@@ -197,13 +198,28 @@ const LoginPage = () => {
     flex: 1;
     font-size: 12px;
   }
-  button {
+  .button {
     background-color: #4caf50;
     border: none;
     color: white;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    width: 100%;
+    display: block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 8px 24px;
+  }
+  .button-mobile {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: none;
+    visibility: hidden
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
@@ -222,6 +238,70 @@ const LoginPage = () => {
   p {
     font-size: 12px;
   }
+
+  @media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    h1 {
+      font-size: 40px;
+      line-height: 100%;
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 40px;
+      border: 1px solid #888;
+      width: 80%;
+      display: flex;
+      flex-direction: column; // Change to row to arrange left-side and right-side horizontally
+      gap: 20px;
+      flex-wrap: wrap; // Wrap the content to fit on small screens
+      border-radius: 15px;
+    }
+    .right-side {
+      align-items: flex-end;
+      flex: 1;
+      margin-top: -40px;
+  }
+  .bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -30px;
+}
+ol {
+  flex-direction: column;
+display: block;
+}
+.button-mobile {
+  background-color: #4caf50;
+  width: 100%;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px 24px;
+}
+.button{
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: none;
+  visibility: hidden;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 8px 24px;
+}
+}
 
 `}</style>
 
