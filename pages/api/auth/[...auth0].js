@@ -36,6 +36,7 @@
 // });
 
 import { handleAuth, handleCallback, handleLogin } from '@auth0/nextjs-auth0';
+import { v4 as uuidv4 } from 'uuid';
 
 const saveUserMetadata = async (user, context) => {
   const { firstName, lastName } = context.request.body;
@@ -54,11 +55,12 @@ const saveUserMetadata = async (user, context) => {
 const options = {
   async login(req, res) {
     try {
+      const state = uuidv4();
       await handleLogin(req, res, {
         authorizationParams: {
           response_type: 'code id_token',
           scope: 'openid email profile',
-          state: req.query.state,
+          state,
         },
         afterCallback: saveUserMetadata,
       });
@@ -80,7 +82,7 @@ const options = {
         },
       });
     } catch (error) {
-      res.status(error.status || 500).end(error.message).redirect('/');
+      res.status(error.status || 500).end(error.message);
     }
   },
 };
