@@ -155,13 +155,14 @@ const LoginPage = () => {
   .modal-content {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
+    padding: 40px;
     border: 1px solid #888;
     width: 80%;
     display: flex;
     flex-direction: row; // Change to row to arrange left-side and right-side horizontally
     gap: 20px;
     flex-wrap: wrap; // Wrap the content to fit on small screens
+    border-radius: 15px;
   }
   .left-side,
   .right-side {
@@ -176,6 +177,7 @@ const LoginPage = () => {
   .right-side {
     align-items: flex-end;
     flex: 1;
+    margin-top: 60px;
   }
   .bottom {
     width: 100%;
@@ -209,11 +211,12 @@ const LoginPage = () => {
     padding: 8px 24px;
   }
   h1 {
-    font-size: 40px;
-    line-height 70%;
+    font-size: 50px;
+    line-height: 100%;
   }
   h2 {
-    margin: -10;
+    margin-bottom: -30px;
+    padding: -20;
     line-height 70%;
   }
   p {
