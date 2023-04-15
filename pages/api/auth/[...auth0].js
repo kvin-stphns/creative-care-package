@@ -56,10 +56,11 @@ const options = {
     try {
       await handleLogin(req, res, {
         authorizationParams: {
-          response_type: 'code',
+          response_type: 'code id_token',
           scope: 'openid email profile',
         },
         afterCallback: saveUserMetadata,
+        usePKCE: false,
       });
     } catch (error) {
       res.status(error.status || 400).end(error.message);
