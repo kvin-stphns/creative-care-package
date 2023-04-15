@@ -111,24 +111,24 @@ const LoginPage = () => {
             <div className="bottom">
               <ol>
                 <li>
-                  Click &quot;unpack&quot;-
+                <strong>Click &quot;unpack&quot;-</strong>
                   <br />
                   launch our web-app to explore the care package interface
                 </li>
                 <li>
-                  Choose a section-
+                <strong>Choose a section-</strong>
                   <br />
                   select one of our 4 sections, health, information, creativity,
                   community
                 </li>
                 <li>
-                  Select a category-
+                <strong>Select a category-</strong>
                   <br />
                   select one of our many categories that will lead you to
                   relevant resources
                 </li>
                 <li>
-                  Medicate-
+                <strong> Medicate-</strong>
                   <br />
                   browse our catalog of resources to heal, learn, and grow. Most
                   of them are free!
@@ -191,7 +191,7 @@ const LoginPage = () => {
   }
   .bottom li {
     margin-bottom: 10px;
-    margin: 3px;
+    margin: 4px;
     flex: 1;
     font-size: 12px;
   }
