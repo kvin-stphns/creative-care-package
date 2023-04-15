@@ -210,6 +210,11 @@ const LoginPage = () => {
   }
   h1 {
     font-size: 40px;
+    line-height 70%;
+  }
+  h2 {
+    margin: -10;
+    line-height 70%;
   }
   p {
     font-size: 12px;
