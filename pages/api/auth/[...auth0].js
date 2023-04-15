@@ -35,42 +35,60 @@
 //   },
 // });
 
-import { handleAuth, handleCallback, handleLogin } from '@auth0/nextjs-auth0';
+import { handleAuth, handleLogin, handleCallback, handleLogout, getSession } from '@auth0/nextjs-auth0';
+import { NextApiRequest, NextApiResponse } from 'next';
+import cookie from 'cookie';
 
-const saveUserMetadata = async (user, context) => {
-  const { firstName, lastName } = context.request.body;
-
-  if (firstName && lastName) {
-    const namespace = 'https://myapp.example.com/';
-    user.app_metadata = user.app_metadata || {};
-    user.app_metadata[namespace + 'first_name'] = firstName;
-    user.app_metadata[namespace + 'last_name'] = lastName;
-    await context.auth0.updateAppMetadata(user.user_id, user.app_metadata);
-  }
-
-  return user;
+const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'lax',
+  path: '/'
 };
 
-const options = {
+export default handleAuth({
   async login(req, res) {
     try {
-      const state = encodeURIComponent(JSON.stringify({ returnTo: '/' }));
-      await handleLogin(req, res, { authorizationParams: { state } });
+      await handleLogin(req, res, {
+        authorizationParams: {
+          scope: 'openid profile email'
+        },
+        returnTo: '/home',
+        refetch: true
+      });
     } catch (error) {
-      res.status(error.status || 500).end(error.message);
+      res.status(error.status || 400).end(error.message);
     }
   },
   async callback(req, res) {
     try {
-      console.log("Callback started"); // Add this line
-      await handleCallback(req, res, { afterCallback: saveUserMetadata });
-      console.log("Callback finished"); // Add this line
+      await handleCallback(req, res, {
+        onUserLoaded: async (req, res, session, state) => {
+          console.log('User loaded:', session.user);
+          res.setHeader('Set-Cookie', cookie.serialize('state', state, cookieOptions));
+          return session;
+        }
+      });
     } catch (error) {
-      console.error("Callback error: ", error); // Add this line
+      res.status(error.status || 400).end(error.message);
+    }
+  },
+  async logout(req, res) {
+    try {
+      await handleLogout(req, res, {
+        returnTo: '/'
+      });
+    } catch (error) {
+      res.status(error.status || 400).end(error.message);
+    }
+  },
+  async session(req, res) {
+    try {
+      const session = await getSession(req, res);
+      res.setHeader('Set-Cookie', cookie.serialize('session', session, cookieOptions));
+      res.status(200).json(session);
+    } catch (error) {
       res.status(error.status || 500).end(error.message);
     }
   }
-};
-
-export default handleAuth(options);
-
+});
