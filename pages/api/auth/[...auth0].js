@@ -36,7 +36,6 @@
 // });
 
 import { handleAuth, handleCallback, handleLogin } from '@auth0/nextjs-auth0';
-import { v4 as uuidv4 } from 'uuid';
 
 const saveUserMetadata = async (user, context) => {
   const { firstName, lastName } = context.request.body;
@@ -55,36 +54,22 @@ const saveUserMetadata = async (user, context) => {
 const options = {
   async login(req, res) {
     try {
-      const state = uuidv4();
-      await handleLogin(req, res, {
-        authorizationParams: {
-          response_type: 'code id_token',
-          scope: 'openid email profile',
-          state,
-        },
-        afterCallback: saveUserMetadata,
-      });
-    } catch (error) {
-      res.status(error.status || 400).end(error.message);
-    }
-  },
-  async callback(req, res) {
-    try {
-      await handleCallback(req, res, {
-        afterCallback: async (req, res, session) => {
-          return {
-            ...session,
-            user: {
-              ...session.user,
-              id_token: req.oidc.id_token.__raw,
-            },
-          };
-        },
-      });
+      const state = encodeURIComponent(JSON.stringify({ returnTo: '/' }));
+      await handleLogin(req, res, { authorizationParams: { state } });
     } catch (error) {
       res.status(error.status || 500).end(error.message);
     }
   },
+  async callback(req, res) {
+    try {
+      console.log("Callback started"); // Add this line
+      await handleCallback(req, res, { afterCallback: saveUserMetadata });
+      console.log("Callback finished"); // Add this line
+    } catch (error) {
+      console.error("Callback error: ", error); // Add this line
+      res.status(error.status || 500).end(error.message);
+    }
+  }
 };
 
 export default handleAuth(options);
