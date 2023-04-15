@@ -185,7 +185,6 @@ const LoginPage = () => {
   }
   .bottom ol {
     padding: 0;
-    list-style: none; // Remove the default list style
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap; // Wrap the list items on small screens
@@ -193,6 +192,7 @@ const LoginPage = () => {
   .bottom li {
     margin-bottom: 10px;
     flex: 1;
+    font-size: 12px;
   }
   button {
     background-color: #4caf50;
@@ -207,6 +207,13 @@ const LoginPage = () => {
     border-radius: 12px;
     padding: 8px 24px;
   }
+  h1 {
+    font-size: 24px;
+  }
+  p {
+    font-size: 12px;
+  }
+
 `}</style>
 
         </div>
