@@ -139,64 +139,76 @@ const LoginPage = () => {
         </div>
       )}
       <style jsx>{`
-        .modal {
-          position: fixed;
-          z-index: 1;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          overflow: auto;
-          background-color: rgba(0, 0, 0, 0.4);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .modal-content {
-          background-color: #fefefe;
-          margin: auto;
-          padding: 20px;
-          border: 1px solid #888;
-          width: 80%;
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-        }
-        .left-side,
-        .right-side {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        }
-        .left-side {
-          align-items: flex-start;
-        }
-        .right-side {
-        align-items: flex-end;
-        }
-        .bottom {
-        width: 100%;
-        }
-        .bottom ol {
-        padding: 0;
-        }
-        .bottom li {
-        margin-bottom: 10px;
-        }
-        button {
-        background-color: #4caf50;
-        border: none;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 12px;
-        padding: 8px 24px;
-        }
-        `}</style>
+  .modal {
+    position: fixed;
+    z-index: 1000; // Increase z-index to avoid being cut off by header/footer
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    display: flex;
+    flex-direction: row; // Change to row to arrange left-side and right-side horizontally
+    gap: 20px;
+    flex-wrap: wrap; // Wrap the content to fit on small screens
+  }
+  .left-side,
+  .right-side {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .left-side {
+    align-items: flex-start;
+    flex: 1;
+  }
+  .right-side {
+    align-items: flex-end;
+    flex: 1;
+  }
+  .bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; // Arrange the list items horizontally
+    flex-wrap: wrap; // Wrap the list items on small screens
+  }
+  .bottom ol {
+    padding: 0;
+    list-style: none; // Remove the default list style
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; // Wrap the list items on small screens
+  }
+  .bottom li {
+    margin-bottom: 10px;
+    flex: 1;
+  }
+  button {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 8px 24px;
+  }
+`}</style>
+
         </div>
         );
         };
