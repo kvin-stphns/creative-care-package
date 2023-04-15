@@ -58,9 +58,9 @@ const options = {
         authorizationParams: {
           response_type: 'code id_token',
           scope: 'openid email profile',
+          state: req.query.state,
         },
         afterCallback: saveUserMetadata,
-        usePKCE: false,
       });
     } catch (error) {
       res.status(error.status || 400).end(error.message);
